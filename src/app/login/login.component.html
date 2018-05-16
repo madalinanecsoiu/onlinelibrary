@@ -1,0 +1,24 @@
+<div class = "header">
+  <h1>Logare</h1>
+  <p>Introduceti datele necesare pentru a accesa contul</p>
+</div>
+
+<div class="login">
+  
+  <mat-form-field id = "emailId">
+    <input matInput placeholder="Introduceti email-ul dvs" [formControl]="email" required>
+    <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field id ="passId">
+    <input matInput placeholder="Introduceti parola" [type]="hide ? 'password' : 'text'" [formControl]="password" required>
+    <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+    <mat-icon matSuffix (click)="hide = !hide"></mat-icon>
+  </mat-form-field>
+
+  <div class = "buttons">
+    <button mat-button id = "loginId" (click) = "login()" >Login</button>
+    <button mat-button id = "registerId" (click) = "register()" >Inregistrare</button>
+  </div>
+ 
+</div>

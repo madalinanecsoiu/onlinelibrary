@@ -1,0 +1,6 @@
+<mat-grid-list cols="3" rowHeight="2:1" class="grid">
+        <mat-grid-tile *ngFor="let book of listOfBooks" class="card-item">
+                <app-singlebook [book]="book"></app-singlebook>
+                </mat-grid-tile>
+</mat-grid-list>
+

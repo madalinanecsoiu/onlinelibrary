@@ -1,0 +1,14 @@
+
+<div class = "buttons">
+    <button mat-button class="button" (click) = "getBooks(1)">Beletristica</button>
+    <button mat-button class="button" (click) = "getBooks(2)">Cariera</button>
+    <button mat-button class="button" (click) = "getBooks(3)">Comunicare</button>
+    <button mat-button class="button" (click) = "getBooks(4)">Dezvoltare personala</button>
+    <button mat-button class="button" (click) = "getBooks(5)">Tehnologie</button>
+</div>
+<mat-grid-list cols="3" rowHeight="2:1" class="grid">
+        <mat-grid-tile *ngFor="let book of listOfBooks" class="card-item">
+                <app-singlebook [book]="book"></app-singlebook>
+                </mat-grid-tile>
+</mat-grid-list>
+

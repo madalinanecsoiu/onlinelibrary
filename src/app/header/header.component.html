@@ -1,0 +1,25 @@
+<nav mat-tab-nav-bar class = "navbar" *ngIf="isLoggedIn$ | async">
+
+  <a mat-tab-link
+  [routerLink]="['/books']"
+  routerLinkActive #rla="routerLinkActive"
+     [active]="rla.isActive">Acasa</a>
+
+  <a mat-tab-link
+  [routerLink]="['/mybooks']"
+  routerLinkActive #rla="routerLinkActive"
+     [active]="rla.isActive">Cartile mele</a>
+
+  <a mat-tab-link
+  [routerLink]="['/about-us']"
+  routerLinkActive #rla="routerLinkActive"
+     [active]="rla.isActive">Despre noi</a>
+
+  <a mat-tab-link
+  [routerLink]="['/contact']"
+  routerLinkActive #rla="routerLinkActive"
+     [active]="rla.isActive">Contact</a>
+  
+  <button mat-button id = "logoutId" (click) = "logout()">Iesire</button>
+</nav>
+

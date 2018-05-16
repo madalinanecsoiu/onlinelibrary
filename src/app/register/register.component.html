@@ -1,0 +1,32 @@
+<div id = "registerId">
+
+  <mat-form-field id = "firstid">
+    <input matInput placeholder="Numele..." [formControl]="firstName" required>
+    <mat-error *ngIf="firstName.invalid">{{getFirstNameErrorMessage()}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field id = "lastid">
+      <input matInput placeholder="Prenume..." [formControl]="lastName" required>
+      <mat-error *ngIf="lastName.invalid">{{getLastNameErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+  <mat-form-field id = "colgid">
+      <input matInput placeholder="Facultate..." [formControl]="college" required>
+      <mat-error *ngIf="college.invalid">{{getCollegeErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+  <mat-form-field id = "emailid">
+      <input matInput placeholder="Email..." [formControl]="email" required>
+      <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+  <mat-form-field id = "passid">
+      <input matInput placeholder="Parola..." [type]="hide ? 'password' : 'text'" [formControl]="password" required>
+      <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+  <div class = "buttons">
+      <button mat-button id = "regbuton" (click) = "registerUser()" >Trimite</button>
+      <button mat-button id = "cancelbuton" (click) = "cancelRegistration()" >Anulare</button>
+    </div>
+</div>

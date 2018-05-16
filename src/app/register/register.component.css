@@ -1,0 +1,22 @@
+#registerId {
+    display: flex;
+    flex-direction: column;
+}
+
+#emailid, #firstid, #lastid, #colgid, #passid{
+    margin-right: 60px;
+    margin-left: 50px;
+    width: 400px;
+    margin-top: 80px;
+    height: 50px
+  }
+
+  .buttons {
+    margin-top: 100px;
+    margin-left: 50px;
+}
+#regbuton, #cancelbuton {
+    width: 200px;
+    font-size: 25px;
+    text-align: start;
+  }
