@@ -21,6 +21,10 @@ import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material';
 
 import { MybooksComponent } from './mybooks/mybooks.component';
 import { AllbooksComponent } from './allbooks/allbooks.component';
@@ -29,6 +33,8 @@ import { ContactComponent } from './contact/contact.component';
 import {LoginService} from './login.service';
 import {BookService} from './book.service';
 import { SinglebookComponent } from './singlebook/singlebook.component';
+import { BookrentingComponent } from './bookrenting/bookrenting.component';
+import { BookdetailsComponent } from './bookdetails/bookdetails.component';
 
 @NgModule({
   declarations: [
@@ -40,12 +46,18 @@ import { SinglebookComponent } from './singlebook/singlebook.component';
     AllbooksComponent,
     AboutusComponent,
     ContactComponent,
-    SinglebookComponent
+    SinglebookComponent,
+    BookrentingComponent,
+    BookdetailsComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     MatTabsModule,
+    MatDialogModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatDatepickerModule,
     MatIconModule,
     MatCardModule,
     MatPaginatorModule,
@@ -66,6 +78,10 @@ import { SinglebookComponent } from './singlebook/singlebook.component';
       {path: 'mybooks', component: MybooksComponent},
       {path: 'contact', component: ContactComponent}
     ])
+  ],
+  entryComponents: [
+    BookrentingComponent,
+    BookdetailsComponent
   ],
   providers: [LoginService, BookService],
   bootstrap: [AppComponent]

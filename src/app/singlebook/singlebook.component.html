@@ -1,9 +1,7 @@
 <mat-card class = "card">
-    <mat-card-title>
+    <mat-card-title id="cardtitle">
         {{book.bookName}}
     </mat-card-title>
-    <mat-card-content>
-
-    </mat-card-content>
-    <button mat-button class="button" >Inchiriaza</button>
+    <button  mat-raised-button color="primary" class="cardbutton1" (click) = "openRentDialog()" >Inchiriaza</button>
+    <button  mat-raised-button class="cardbutton2" (click) = "openDetailsDialog()" >Detalii</button>
 </mat-card>

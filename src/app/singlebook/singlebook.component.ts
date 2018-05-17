@@ -1,4 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import {MatDialog, MatDialogConfig} from "@angular/material";
+import { BookrentingComponent } from '../bookrenting/bookrenting.component';
+import { BookdetailsComponent } from '../bookdetails/bookdetails.component';
 
 @Component({
   selector: 'app-singlebook',
@@ -11,7 +14,7 @@ export class SinglebookComponent implements OnInit {
 
   startdate:any;
   enddate: any;
-  constructor() {
+  constructor(private dialog: MatDialog) {
    }
 
   ngOnInit() {
@@ -19,6 +22,40 @@ export class SinglebookComponent implements OnInit {
 
   logModel(event) {
     console.log(event);
+  }
+  openRentDialog() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+  
+    dialogConfig.hasBackdrop = false;
+    const dialogRef = this.dialog.open(BookrentingComponent, dialogConfig);
+
+  // daca vine undefined = a dat cancel
+  // daca are date = trimitem la backend
+    dialogRef.afterClosed().subscribe(
+      data => console.log("Dialog output:", data)
+  );  
+}
+  openDetailsDialog() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.hasBackdrop = false;
+    dialogConfig.data = this.book;
+    dialogConfig.width = '500px';
+    const dialogRef = this.dialog.open(BookdetailsComponent, dialogConfig);
+
+    // daca vine undefined = a dat cancel
+    // daca are date = trimitem la backend
+    dialogRef.afterClosed().subscribe(
+      data => console.log("Dialog output:", data)
+    );  
   }
 
 }

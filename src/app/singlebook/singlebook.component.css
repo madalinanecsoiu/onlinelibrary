@@ -5,3 +5,15 @@
     max-height: 200px;
 
 }
+#cardtitle {
+    height: 50px;
+    max-height: 50px;
+}
+.cardbutton1 {
+    margin-top: 70px;
+    float: left;
+}
+.cardbutton2 {
+    margin-top: 70px;
+    float: right;
+}
