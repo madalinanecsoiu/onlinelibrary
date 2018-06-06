@@ -1,0 +1,20 @@
+<mat-card class = "card">
+  <mat-card-title id="cardtitle">
+      {{bookRenting.book.bookName}}
+  </mat-card-title>
+
+  <mat-card-subtitle>
+          Data de preluare: {{bookRenting.startOfRenting}}
+  </mat-card-subtitle>
+  <mat-card-subtitle>
+          Data de returnare: {{bookRenting.endOfRenting}}
+  </mat-card-subtitle>
+  <button  mat-raised-button color="primary" class="cardbutton1"
+   [disabled]="checkStatusOfRenting(bookRenting.stateOfRenting)" (click) = "cancelBook(bookRenting.book.id)">Anuleaza</button>
+  <button  mat-raised-button class="cardbutton2" 
+  (click) = "openDetailsDialog(bookRenting.book)" >Detalii</button>
+  <neutron-rating *ngIf = "bookRenting.stateOfRenting == 'FINISHED'"[rating]='bookRenting.book.bookRating' [starColour]="'#FDD835'" [starSize]="1" 
+  (ratingClicked)='onRatingClicked($event, bookRenting.book.id)' [readOnly]="bookRenting.rated" ></neutron-rating>
+  <neutron-rating *ngIf = "bookRenting.stateOfRenting != 'FINISHED'"[rating]='bookRenting.book.bookRating' [starColour]="'#FDD835'" [starSize]="1" 
+  [readOnly]="true" ></neutron-rating>
+</mat-card>

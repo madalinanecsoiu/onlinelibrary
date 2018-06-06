@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {LoginService} from '../login.service';
+import {BookService} from '../book.service';
+import {AdminService} from '../admin.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,34 +10,33 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
 
+export class LoginComponent implements OnInit {
+  customerid;
   hide = true;
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService,private bookService: BookService, private adminService: AdminService, private router: Router) { }
 
   ngOnInit() {
   }
 
   login() {
-    let customerid = 5;
-    this.loginService.setIsLoggedIn();
-    window.sessionStorage.setItem("userId", customerid.toString());
-    this.router.navigate(['/books']);
-    /*this.loginService.login(this.email.value, this.password.value).subscribe(response => {
+
+    this.loginService.login(this.email.value, this.password.value).subscribe(response => {
       console.log(response.text())
-      customerid = Number(response.text());
-      switch(customerid) {
-        case 0: 
-        case -1: 
+      this.customerid = Number(response.text());
+      switch(this.customerid) {
+        case -2:
+                 this.router.navigate(['./admin-page']);
+                 break;
         default:
           this.loginService.setIsLoggedIn();
-          window.sessionStorage.setItem("userId", customerid.toString());
-          this.router.navigate(['/books']);
+          sessionStorage.setItem("userId", this.customerid.toString());
+          this.router.navigate(['books']);
           
       }   
-    });*/
+    });
 
   }
 
@@ -50,5 +51,13 @@ export class LoginComponent implements OnInit {
   getPasswordErrorMessage() {
     if(this.password.hasError('required'))
      return 'You must enter a value';
+  }
+  getPasswordInvalidErrorMessage() {
+    if(this.customerid == 0)
+     return 'Wrong password! Please, try again';
+  }
+  getInexistentAccountErrorMessage() {
+    if(this.customerid == -1)
+     return 'You does not have any account! Please, register';
   }
 }

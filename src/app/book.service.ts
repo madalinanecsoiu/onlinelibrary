@@ -10,61 +10,67 @@ export class BookService {
   private options;
 
   constructor( private http: Http) { 
+
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/json');
     this.headers.append('Accept', 'application/json');
     this.options = new RequestOptions({headers: this.headers});
   }
 
-  getBooksFromSpecificCategory(category: any) {
+  getBooksFromSpecificCategory(categoryNumber) {
     let url;
-    url = this.booksUrl.concat(category);
+    url = this.booksUrl.concat(categoryNumber);
     console.log(url);
     return this.http.get(url,
                   this.options);
+
   }
-  rentBook(bookId: any) {
+  getUserBooksRented() {
+    let url;
     let userId = sessionStorage.getItem("userId");
+    url = this.rentingUrl.concat(userId);
+
+    return this.http.get(url,
+                  this.options);
+  }
+
+  rentBook(bookId: any, startDate, endDate) {
 
     let time = new Date();
     let body = {
-      start: time.toString(),
-      end: time.toString(),
-      status: "RENTING"
+      start: startDate,
+      end: endDate,
+      status: "PENDING"
     }
     let url;
-    url = this.rentingUrl.concat(userId);
-    url = url.concat("/");
-    url = url.concat(bookId);
-
+    let userId = sessionStorage.getItem("userId");
+    url = this.rentingUrl.concat(userId + "/" + bookId);
+ 
     this.http.post(url, JSON.stringify(body),
                   this.options).subscribe(response => {
-                                        console.log("===============")
-                                        
+                                      
                                         console.log(response.json())
                                         
                                       })
-  }
-  getUserBooksRented() {
-    let userId = sessionStorage.getItem("userId");
-    let url;
-    url = this.rentingUrl.concat(userId);
-    return this.http.get(url,
-                  this.options);
   }
 
   cancelBook(bookId: any) {
     let url;
     let userId = sessionStorage.getItem("userId");
+    url = this.rentingUrl.concat(userId + "/" + bookId);
 
-    url = this.rentingUrl.concat(userId);
-    url = url.concat("/");
-    url = url.concat(bookId);
     this.http.delete(url,
     this.options).subscribe(response => {
-                          console.log("===============")
-                          console.log(response.json())
+                          console.log(response);
                         })
+  }
+  rateBook(rating, id) {
+    let userId = sessionStorage.getItem("userId");
+    let url;
+    url = this.booksUrl.concat(id + "/" + userId);
+    console.log(url);
+    return this.http.put(url,rating,
+                  this.options);
   }
 
 }

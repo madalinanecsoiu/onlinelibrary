@@ -1,8 +1,8 @@
 <div class="grid">
-        <mat-grid-list cols="4" rowHeight="1:1" >
-                        <mat-grid-tile *ngFor="let book of listOfBooks" id="card-item">
-                                <app-singlebook [book]="book"></app-singlebook>
-                                </mat-grid-tile>
+        <mat-grid-list cols="4" rowHeight="1:1" *ngIf = "listOfBooks">
+                        <mat-grid-tile *ngFor="let bookRenting of listOfBooks" id="card-item">
+                                <app-book [bookRenting]="bookRenting"></app-book>
+                        </mat-grid-tile>
                 </mat-grid-list>
         </div>
 

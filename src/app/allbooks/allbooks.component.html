@@ -1,18 +1,74 @@
+<div class = "books">
+        <mat-toolbar class="toolbar-books">
+                <mat-toolbar-row>
+                        <span>Biblioteca</span>
+                </mat-toolbar-row>
+                
+                <mat-toolbar-row>
+                        <button mat-button class="button" (click) = "getBooks(1)">Beletristica</button>
+                </mat-toolbar-row>
+                <mat-toolbar-row>
+                        <button mat-button class="button" (click) = "getBooks(2)">Cariera</button>
+                </mat-toolbar-row>
+                <mat-toolbar-row>
+                        <button mat-button class="button" (click) = "getBooks(3)">Comunicare</button>
+                </mat-toolbar-row>
+                <mat-toolbar-row>
+                        <button mat-button class="button" (click) = "getBooks(4)">Dezvoltare personala</button>
+                </mat-toolbar-row>
+                <mat-toolbar-row>
+                        <button mat-button class="button" (click) = "getBooks(5)">Tehnologie</button>
+                </mat-toolbar-row>
+                        </mat-toolbar>
+        <div class="categoryImage" *ngIf = "data != null">
+                <img src={{categoryPathImage}} />
+        </div>
 
-<div class = "buttons">
-    <button mat-button class="button" (click) = "getBooks(1)">Beletristica</button>
-    <button mat-button class="button" (click) = "getBooks(2)">Cariera</button>
-    <button mat-button class="button" (click) = "getBooks(3)">Comunicare</button>
-    <button mat-button class="button" (click) = "getBooks(4)">Dezvoltare personala</button>
-    <button mat-button class="button" (click) = "getBooks(5)">Tehnologie</button>
+        
+        <div class = "home-page" *ngIf = "data== null">
+                <div class="home-image">
+                      <img src={{homeImagePath}} />
+                </div>
+                <div class = "msg-news">
+                        <mat-card style="max-height:500px;">
+                                <mat-card-title>Noutati</mat-card-title>
+                                <mat-card-content style="max-height:400px; overflow-y: auto">
+                                        <mat-list-item *ngFor="let message of news" >
+                                                        <h4 mat-line>{{message.name}}</h4>
+                                                        <p mat-line> {{message.description}} </p>
+                                        </mat-list-item>
+                                </mat-card-content>
+                        </mat-card>
+                                
+                </div>
+        </div>
+        
+        <div class="grid" *ngIf = "data!= null">
+                <mat-grid-list cols="4" rowHeight="1:1">
+                        <mat-grid-tile *ngFor="let book of data" class="card-item">
+                                <mat-card class = "card">
+                                        <mat-card-title id="cardtitle">
+                                                        {{book.bookName}}
+                                                        </mat-card-title>
+                                        <img mat-card-image src={{pathImage}} alt="image" class ="book-image">
+                                        <neutron-rating [rating]='book.bookRating' [starColour]="'#FDD835'" [starSize]="1" 
+                                        [readOnly]="true" ></neutron-rating>
+                                        <div>
+                                                <button  mat-raised-button color="primary" class="cardbutton1" 
+                                                (click) = "openRentDialog(book.id)">Inchiriaza</button>
+                                                <button  mat-raised-button class="cardbutton2" (click) = "openDetailsDialog(book)" >Detalii</button>
+                                        </div>
+                                        
+                                        </mat-card>
+                        </mat-grid-tile>
+                </mat-grid-list>
+                <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="totalSize"
+                        [pageIndex]="currentPage" (page)="pageEvent = handlePage($event)">
+                </mat-paginator>
+        </div>
+
 </div>
-<div class="grid">
-        <mat-grid-list cols="4" rowHeight="1:1" >
-                <mat-grid-tile *ngFor="let book of listOfBooks" class="card-item">
-                        <app-singlebook [book]="book"></app-singlebook>
-                </mat-grid-tile>
-        </mat-grid-list>
-</div>
+
 
 
 

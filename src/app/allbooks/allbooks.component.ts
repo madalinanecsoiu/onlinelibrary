@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
+import { BookrentingComponent } from '../bookrenting/bookrenting.component';
+import { BookdetailsComponent } from '../bookdetails/bookdetails.component';
+import {MatDialog, MatDialogConfig} from "@angular/material";
 import { BookService } from '../book.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import {MatPaginator, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-allbooks',
@@ -9,29 +14,109 @@ import { BookService } from '../book.service';
 export class AllbooksComponent implements OnInit {
 
   private listOfBooks: Array<any> = [];
+  private temporaryList:Array<any> = [];
   categories:any;
+  startdate:any;
+  enddate: any;
+  categoryId;
+  pathImage = "../assets/book.png";
+  homeImagePath = "../assets/mainpage.png";
+  categoryPathImage;
+  private sub;
+  public data = null;
+  public pageSize = 8;
+  public currentPage = 0;
+  public totalSize = 0;
+  news;
 
-  constructor(private bookService: BookService) {
-      this.listOfBooks = [];
-   }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-
-  getBooks(categoryId) {
-    this.listOfBooks = [{bookName: "Romeo si Julieta", status: "AVAILABLE", id: "5", rating:4.5,
-    description:"Piesa începe într-o piață publică din Verona unde Samson si Gregorio poartă discuții despre ura lor față de familile rivale. Aceștia încep să se lupte. Apoi își face apariția și Benvolio care încearcă să-i despartă, dar lupta continuă o dată ce vine și Tybalt. Toți aceștia au fost convinși să renunțe la conflict de către copiii celor două familii. Apoi Lady Montague întreabă de Romeo, iar Benvolio și Montague își fac planuri pentru a-l face să renunțe la iubirea care-l mistuie.", 
-      author:"William Shakespeare",
-              publisher:"Namira"}, {bookName: "Maria", status: "RENTED", rating: 3.2}
-                               , {bookName: "Marius", status: "READED", rating: 2.6}, {bookName: "Ana", status: "RENTING", rating: 2.5}, {bookName: "Maria", status: "RENTED", rating: 3.2}
-                               , {bookName: "Marius", status: "READED", rating: 2.6}];
-    /*console.log(categoryId);
-    this.bookService.getBooksFromSpecificCategory(categoryId).
-                     subscribe( response => {this.listOfBooks = response.json(); console.log(response.json());}
-                                );
-    */
-
+  constructor(private bookService: BookService, private dialog: MatDialog, private route: ActivatedRoute,  private router: Router) {
+      this.news = [
+        {"name": "Carte noua in beletristica", "description": "fdgdf"},
+        {"name": "Carte noua in beletristica", "description": "fdgdf"},
+        {"name": "Carte noua in beletristica", "description": "fdgdf"},
+        {"name": "Carte noua in beletristica", "description": "fdgdf"},
+        {"name": "Carte noua in beletristica", "description": "fdgdf"},
+        {"name": "Carte noua in beletristica", "description": "fdgdf"},
+        {"name": "Carte noua in beletristica", "description": "fdgdf"},
+        {"name": "Carte noua in beletristica", "description": "fdgdf"},
+        {"name": "Carte noua in beletristica", "description": "fdgdf"}
+      ];
   }
 
   ngOnInit() {
+
+    this.sub = this.route.params.subscribe( params => {this.categoryId = params['id'];  
+    if(this.categoryId != null)
+      this.bookService.getBooksFromSpecificCategory(this.categoryId)
+        .subscribe( response => {this.listOfBooks = response.json(); console.log(response.json()); this.iterator(); this.totalSize = this.listOfBooks.length;
+        this.currentPage = 0; this.getCategoryImage(Number(this.categoryId));
+      }); });
+   
+  }
+  getCategoryImage(categoryId) {
+    switch(categoryId) {
+      case 1: this.categoryPathImage =  "../assets/beletristica.png"; break;
+      case 2: this.categoryPathImage =  "../assets/cariera.png";break;
+      case 3: this.categoryPathImage =  "../assets/comunicare.png";break;
+      case 4: this.categoryPathImage =  "../assets/dezv.png";break;
+      case 5: this.categoryPathImage =  "../assets/tehno.png";break;
+    }
+  }
+  public handlePage(e: any) {
+    this.currentPage = e.pageIndex;
+    this.pageSize = e.pageSize;
+    this.iterator();
   }
 
+  public iterator() {
+    const end = (this.currentPage + 1) * this.pageSize;
+    const start = this.currentPage * this.pageSize;
+    const part = this.listOfBooks.slice(start, end);
+    this.data = part;
+  }
+  getBooks(categoryId) {
+    this.router.navigate(['books', categoryId]);
+  }
+
+  openRentDialog(id) {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '25%';
+    dialogConfig.width = '500px';
+  
+    dialogConfig.hasBackdrop = false;
+    const dialogRef = this.dialog.open(BookrentingComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      data =>  {
+        if(data != null) {
+            let startDate  = data.startDate.getFullYear() + "/" + (data.startDate.getMonth() + 1) + "/" + data.startDate.getDate();
+            let endDate  = data.endDate.getFullYear() + "/" + (data.endDate.getMonth() + 1) + "/" + data.endDate.getDate();
+            this.bookService.rentBook(id, startDate, endDate);
+        }
+        console.log("Dialog output:", data);
+       }
+  );  
+}
+  openDetailsDialog(book) {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.hasBackdrop = false;
+    dialogConfig.data = book;
+    dialogConfig.width = '500px';
+    dialogConfig.height = '45%';
+    const dialogRef = this.dialog.open(BookdetailsComponent, dialogConfig);
+  }
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 }

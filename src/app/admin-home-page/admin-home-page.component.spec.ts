@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SinglebookComponent } from './singlebook.component';
+import { AdminHomePageComponent } from './admin-home-page.component';
 
-describe('SinglebookComponent', () => {
-  let component: SinglebookComponent;
-  let fixture: ComponentFixture<SinglebookComponent>;
+describe('AdminHomePageComponent', () => {
+  let component: AdminHomePageComponent;
+  let fixture: ComponentFixture<AdminHomePageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SinglebookComponent ]
+      declarations: [ AdminHomePageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SinglebookComponent);
+    fixture = TestBed.createComponent(AdminHomePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

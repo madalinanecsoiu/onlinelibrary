@@ -25,6 +25,9 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material';
+import {MatTableModule} from '@angular/material/table';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatListModule} from '@angular/material/list';
 
 import { MybooksComponent } from './mybooks/mybooks.component';
 import { AllbooksComponent } from './allbooks/allbooks.component';
@@ -32,9 +35,13 @@ import { AboutusComponent } from './aboutus/aboutus.component';
 import { ContactComponent } from './contact/contact.component';
 import {LoginService} from './login.service';
 import {BookService} from './book.service';
-import { SinglebookComponent } from './singlebook/singlebook.component';
+import { AdminService } from './admin.service';
 import { BookrentingComponent } from './bookrenting/bookrenting.component';
 import { BookdetailsComponent } from './bookdetails/bookdetails.component';
+import { AdminHomePageComponent } from './admin-home-page/admin-home-page.component';
+import { NeutronRatingModule } from 'neutron-star-rating';
+import { BookComponent } from './book/book.component';
+
 
 @NgModule({
   declarations: [
@@ -46,19 +53,25 @@ import { BookdetailsComponent } from './bookdetails/bookdetails.component';
     AllbooksComponent,
     AboutusComponent,
     ContactComponent,
-    SinglebookComponent,
     BookrentingComponent,
-    BookdetailsComponent
+    BookdetailsComponent,
+    AdminHomePageComponent,
+    BookComponent
   ],
   imports: [
+    NeutronRatingModule,
     BrowserModule,
     HttpModule,
     MatTabsModule,
+    MatToolbarModule,
     MatDialogModule,
+    MatMenuModule,
+    MatTableModule,
     MatNativeDateModule,
     MatSelectModule,
     MatDatepickerModule,
     MatIconModule,
+    MatListModule,
     MatCardModule,
     MatPaginatorModule,
     MatGridListModule,
@@ -75,15 +88,18 @@ import { BookdetailsComponent } from './bookdetails/bookdetails.component';
       {path: 'sign-up', component: RegisterComponent},
       {path: 'about-us', component: AboutusComponent},
       {path: 'books', component: AllbooksComponent},
+      {path: 'books/:id', component: AllbooksComponent},
       {path: 'mybooks', component: MybooksComponent},
-      {path: 'contact', component: ContactComponent}
-    ])
+      {path: 'contact', component: ContactComponent},
+      {path: 'admin-page', component: AdminHomePageComponent}
+      
+    ], {useHash: true})
   ],
   entryComponents: [
     BookrentingComponent,
     BookdetailsComponent
   ],
-  providers: [LoginService, BookService],
+  providers: [LoginService, BookService, AdminService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

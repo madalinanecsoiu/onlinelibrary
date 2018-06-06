@@ -1,7 +1,14 @@
 #logoutId {
     float: right;
     margin-right: 30px;
+    color: white;
+    padding-top:8px;
 }
 .navbar {
-    margin-left: 50px;
+    background-color: rgb(80, 77, 77)
 }
+.mat-tab-link{
+    color: white;
+}
+
+

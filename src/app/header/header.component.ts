@@ -10,11 +10,11 @@ export class HeaderComponent implements OnInit {
 
   navLinks: any;
   isLoggedIn$;
+  userId;
 
   constructor(private loginService: LoginService) { 
     this.isLoggedIn$ = this.loginService.IsLoggedIn;
     console.log(this.isLoggedIn$);
-
   
   }
   ngOnInit() {
@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
     this.loginService.logout();
   }
  
+
 
 
 

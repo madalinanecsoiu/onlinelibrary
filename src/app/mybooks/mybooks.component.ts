@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { BookService } from '../book.service';
+import {MatDialog, MatDialogConfig} from "@angular/material";
+import { BookdetailsComponent } from '../bookdetails/bookdetails.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mybooks',
@@ -8,16 +11,13 @@ import { BookService } from '../book.service';
 })
 export class MybooksComponent implements OnInit {
 
-  listOfBooks:Array<any>;
-  constructor(private bookService: BookService) { 
-    this.listOfBooks = [{bookName: "Ana", status: "RENTING", rating: 2.5}, {bookName: "Maria", status: "RENTED", rating: 3.2}
-                               , {bookName: "Marius", status: "READED", rating: 2.6}, {bookName: "Ana", status: "RENTING", rating: 2.5}, {bookName: "Maria", status: "RENTED", rating: 3.2}
-                               , {bookName: "Marius", status: "READED", rating: 2.6}];
-     /* this.bookService.getUserBooksRented().
-                    subscribe( response => (this.listOfBooks = response.json()));*/
-   }
-
-  ngOnInit() {
+ listOfBooks:Array<any>;
+  
+  constructor(private bookService: BookService, private dialog: MatDialog,private router: Router) { 
+   
   }
-
+  ngOnInit() {
+      this.bookService.getUserBooksRented().subscribe( response => {this.listOfBooks = response.json(); console.log(response.json());});
+  }
+ 
 }

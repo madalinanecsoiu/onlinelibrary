@@ -26,7 +26,7 @@ export class LoginService {
       this.isLoggedIn.next(true);
    }
    tokenAvailable() {
-     if(window.sessionStorage.length != 0)
+     if(sessionStorage.length != 0)
         return true;
       return false;
    }
@@ -42,8 +42,12 @@ export class LoginService {
    }
 
    logout() {
+     if(sessionStorage.length == 0) {
+      this.router.navigate(['']);
+      return;
+     }
      this.isLoggedIn.next(false);
-     window.sessionStorage.clear();
+     sessionStorage.clear();
      this.router.navigate(['']);
    }
 

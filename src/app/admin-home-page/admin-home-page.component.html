@@ -1,0 +1,45 @@
+<div class= "header">
+  <button class = "logout-button" mat-button color="primary" (click) = "logout()">Iesire</button>
+</div>
+
+<p class = "sentence">
+  Pentru a selecta cartile studentului va rugam introduceti email-ul.
+</p>
+
+<div class= "search">
+  <form >
+    <mat-form-field id = "search-email">
+      <input matInput placeholder="Email utilizator" [formControl]="email" required>
+      <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div class="search-button">
+  <button  mat-button color="primary" (click) = "showBooksOfRequestedUser()">Cauta</button>
+</div>
+
+
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf = "dataSource!= null">
+>
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="start">
+    <mat-header-cell *matHeaderCellDef>Start reading</mat-header-cell>
+    <mat-cell *matCellDef="let element"> 
+        <button  mat-button color="primary" [disabled]="checkAvailability(element.status)" (click) = "startBookReading(element.id, element.userId)" >Start</button>  
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="end">
+    <mat-header-cell *matHeaderCellDef>End reading</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+        <button  mat-button color="primary" [disabled]="!checkAvailability(element.status)" (click) = "endBookReading(element.id, element.userId)">Incheie</button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

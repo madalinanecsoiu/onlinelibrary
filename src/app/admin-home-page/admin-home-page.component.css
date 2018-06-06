@@ -1,0 +1,21 @@
+.search{
+    padding-top: 60px;
+    display: inline-block;
+    
+}
+#search-email {
+    width: 400px;
+}
+.search-button {
+    padding-top: 60px;
+    display: inline-block;
+    margin-left: 200px;
+    height: 100px;
+    width: 70px;
+}
+.header {
+    float: right;
+}
+.sentence {
+    padding-top: 50px;
+}
