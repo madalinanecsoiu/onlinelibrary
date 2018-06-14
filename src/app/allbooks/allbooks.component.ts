@@ -32,25 +32,16 @@ export class AllbooksComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private bookService: BookService, private dialog: MatDialog, private route: ActivatedRoute,  private router: Router) {
-      this.news = [
-        {"name": "Carte noua in beletristica", "description": "fdgdf"},
-        {"name": "Carte noua in beletristica", "description": "fdgdf"},
-        {"name": "Carte noua in beletristica", "description": "fdgdf"},
-        {"name": "Carte noua in beletristica", "description": "fdgdf"},
-        {"name": "Carte noua in beletristica", "description": "fdgdf"},
-        {"name": "Carte noua in beletristica", "description": "fdgdf"},
-        {"name": "Carte noua in beletristica", "description": "fdgdf"},
-        {"name": "Carte noua in beletristica", "description": "fdgdf"},
-        {"name": "Carte noua in beletristica", "description": "fdgdf"}
-      ];
+      
   }
 
   ngOnInit() {
+    this.bookService.getAllNews().subscribe(response => {this.news= response.json();});
 
     this.sub = this.route.params.subscribe( params => {this.categoryId = params['id'];  
     if(this.categoryId != null)
       this.bookService.getBooksFromSpecificCategory(this.categoryId)
-        .subscribe( response => {this.listOfBooks = response.json(); console.log(response.json()); this.iterator(); this.totalSize = this.listOfBooks.length;
+        .subscribe( response => {this.listOfBooks = response.json();this.iterator(); this.totalSize = this.listOfBooks.length;
         this.currentPage = 0; this.getCategoryImage(Number(this.categoryId));
       }); });
    

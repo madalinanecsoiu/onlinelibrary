@@ -4,6 +4,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material";
 import { BookdetailsComponent } from '../bookdetails/bookdetails.component';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-mybooks',
   templateUrl: './mybooks.component.html',
@@ -19,5 +20,7 @@ export class MybooksComponent implements OnInit {
   ngOnInit() {
       this.bookService.getUserBooksRented().subscribe( response => {this.listOfBooks = response.json(); console.log(response.json());});
   }
- 
+
+
+  
 }

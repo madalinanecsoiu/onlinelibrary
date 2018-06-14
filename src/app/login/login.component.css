@@ -19,7 +19,7 @@
     margin-right: 60px;
     margin-left: 50px;
   }
-  #loginId, #registerId {
+  #loginId, #registerId, #loginfb{
     width: 200px;
     font-size: 25px;
     text-align: start;

@@ -4,6 +4,7 @@ import {LoginService} from '../login.service';
 import {BookService} from '../book.service';
 import {AdminService} from '../admin.service';
 import { Router } from '@angular/router';
+import {AuthService,FacebookLoginProvider,GoogleLoginProvider} from 'angular5-social-login';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
   hide = true;
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
-  constructor(private loginService: LoginService,private bookService: BookService, private adminService: AdminService, private router: Router) { }
+  constructor(private loginService: LoginService,private bookService: BookService, private adminService: AdminService, private router: Router
+    , private socialAuthService: AuthService) { }
 
   ngOnInit() {
   }
@@ -43,6 +45,16 @@ export class LoginComponent implements OnInit {
   register() {
     this.router.navigate(['/sign-up']);
   }
+
+  public facebookLogin() {
+    let socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
+    this.socialAuthService.signIn(socialPlatformProvider).then(
+      (userData) => {
+              //this will return user data from facebook. What you need is a user token which you will send it to the server
+              this.loginService.sendToRestApiMethod(userData.email, userData.name);
+       }
+    );
+  }
   getEmailErrorMessage() {
     return this.email.hasError('required') ? 'You must enter a value' :
         this.email.hasError('email') ? 'Not a valid email' :
@@ -60,4 +72,6 @@ export class LoginComponent implements OnInit {
     if(this.customerid == -1)
      return 'You does not have any account! Please, register';
   }
+
+
 }

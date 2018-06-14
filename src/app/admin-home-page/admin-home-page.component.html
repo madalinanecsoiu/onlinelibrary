@@ -18,7 +18,19 @@
   <button  mat-button color="primary" (click) = "showBooksOfRequestedUser()">Cauta</button>
 </div>
 
+<p>
+    Pentru a adauga un anunt nou completati campurile urmatoare:
+</p>
 
+<div class = "news">
+  <mat-form-field class= "newsTitle">
+    <input matInput placeholder="Titlu" [formControl]="newsTitle" required>
+  </mat-form-field>
+  <mat-form-field class= "newsContent">
+      <input matInput placeholder="Descriere" [formControl]="newsContent" required>
+  </mat-form-field>
+  <button class="newsButton" mat-button color="primary" (click) = "createNews()">Adauga</button>
+</div>
 <mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf = "dataSource!= null">
 >
   <ng-container matColumnDef="name">

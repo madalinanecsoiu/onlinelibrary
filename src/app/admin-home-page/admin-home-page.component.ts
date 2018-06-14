@@ -13,6 +13,8 @@ export class AdminHomePageComponent implements OnInit {
   private temporaryList;
   map = new Map<string, Array<any>>(); 
   email = new FormControl('', [Validators.required, Validators.email]);
+  newsTitle = new FormControl();
+  newsContent = new FormControl();
   dataSource;
 
   displayedColumns = ['name','start', 'end'];
@@ -74,6 +76,10 @@ export class AdminHomePageComponent implements OnInit {
             '';
   }
 
-
+  createNews() {
+    this.adminService.createNews(this.newsTitle.value, this.newsContent.value);
+    this.newsTitle.reset();
+    this.newsContent.reset();
+  }
 
 }

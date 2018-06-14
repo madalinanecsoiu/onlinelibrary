@@ -9,6 +9,9 @@ import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { RegisterComponent } from './register/register.component';
 
+import { SocialLoginModule, AuthServiceConfig } from "angular5-social-login";
+import { FacebookLoginProvider } from "angular5-social-login";
+import { getAuthServiceConfigs } from "./socialloginConfig";
 
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatMenuModule} from '@angular/material/menu';
@@ -61,6 +64,7 @@ import { BookComponent } from './book/book.component';
   imports: [
     NeutronRatingModule,
     BrowserModule,
+    SocialLoginModule,
     HttpModule,
     MatTabsModule,
     MatToolbarModule,
@@ -86,7 +90,6 @@ import { BookComponent } from './book/book.component';
     RouterModule.forRoot([
       {path: '', component: LoginComponent},
       {path: 'sign-up', component: RegisterComponent},
-      {path: 'about-us', component: AboutusComponent},
       {path: 'books', component: AllbooksComponent},
       {path: 'books/:id', component: AllbooksComponent},
       {path: 'mybooks', component: MybooksComponent},
@@ -99,7 +102,10 @@ import { BookComponent } from './book/book.component';
     BookrentingComponent,
     BookdetailsComponent
   ],
-  providers: [LoginService, BookService, AdminService],
+  providers: [LoginService, BookService, AdminService, {
+    provide: AuthServiceConfig,
+    useFactory: getAuthServiceConfigs
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

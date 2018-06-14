@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions} from '@angular/http';
-
+import { environment } from '../environments/environment';
 @Injectable()
 export class BookService {
 
-  private booksUrl = 'http://localhost:8080/library/books/';
-  private rentingUrl = 'http://localhost:8080/library/userBooks/'
+  private booksUrl;
+  private rentingUrl;
   private headers: Headers;
   private options;
 
   constructor( private http: Http) { 
-
+    this.booksUrl = environment.booksUrl;
+    this.rentingUrl = environment.userBooksUrl;
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/json');
     this.headers.append('Accept', 'application/json');
@@ -71,6 +72,11 @@ export class BookService {
     console.log(url);
     return this.http.put(url,rating,
                   this.options);
+  }
+
+  getAllNews() {
+    return this.http.get(environment.newsUrl,
+      this.options);
   }
 
 }
