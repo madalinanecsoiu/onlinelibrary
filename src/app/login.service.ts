@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions} from '@angular/http';
+import { Http, Headers, RequestOptions, URLSearchParams} from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {ActivatedRoute, Router} from '@angular/router'
 import { environment } from '../environments/environment';
@@ -19,6 +19,7 @@ export class LoginService {
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/json');
     this.headers.append('Accept', 'application/json');
+    this.headers.append('Authorization', 'Basic ' + btoa('john123:password'));
     this.isLoggedIn = new BehaviorSubject<boolean>(this.tokenAvailable());
     console.log(this.loginUrl);
    }
@@ -52,7 +53,7 @@ export class LoginService {
      }
      
     this.socialAuthService.authState.subscribe(response => {
-      if(response.email != null) {
+      if(response != null) {
         this.socialAuthService.signOut().then( () => { 
 
         });
@@ -73,18 +74,23 @@ export class LoginService {
                 options);
    }
 
-   sendToRestApiMethod(email: string, name) : void{
+   sendToRestApiMethod(email: string, name, token) : void{
     const options = new RequestOptions({headers: this.headers});
-     console.log(email);
+    options.params = new URLSearchParams();
+    options.params.append('token', token);
+     console.log(token);
      let body = {
       email: email,
       lastName: name
     }
     this.http.post(environment.loginfb,body, options)
         .subscribe(response => {
-              this.setIsLoggedIn();
-              sessionStorage.setItem("userId",  response.text());
-              this.router.navigate(['books']);
+              if(response.text() != "-1") {
+                this.setIsLoggedIn();
+                sessionStorage.setItem("userId",  response.text());
+                this.router.navigate(['books']);
+              }
+             
                }
         );
       }

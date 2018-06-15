@@ -19,6 +19,7 @@ export class AdminService {
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/json');
     this.headers.append('Accept', 'application/json');
+    this.headers.append("Authorization", "Basic " + btoa("john123:password"));
     this.options = new RequestOptions({headers: this.headers});
   }
 

@@ -1,6 +1,7 @@
+
 <div class = "header">
-  <h1>Logare</h1>
-  <p>Introduceti datele necesare pentru a accesa contul</p>
+  <h1>Buna ziua!</h1>
+  <p>Introduceti datele necesare pentru a accesa contul:</p>
 </div>
 
 <div class="login">
@@ -17,10 +18,11 @@
   </mat-form-field>
 
   <div class = "buttons">
-    <button mat-button id = "loginId" (click) = "login()" >Login</button>
-    <button mat-button id = "registerId" (click) = "register()" >Inregistrare</button>
+    <button mat-raised-button color="primary" id = "loginId" (click) = "login()" >Login</button>
+    <button class="loginBtn loginBtn--facebook" (click)="facebookLogin()">
+      Login
+    </button>
   </div>
-
-  <button mat-button id = "loginfb"(click)="facebookLogin()" >Login with Facebook</button> 
  
+  <button mat-button id = "registerId" (click) = "register()" >Inregistrare</button>
 </div>
