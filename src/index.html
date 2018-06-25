@@ -8,9 +8,33 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+      body, html {
+          height: 100%;
+          margin: 0;
+      }
+      
+      .bg {
+          /* The image used */
+          background-image: url('./assets/book-backgroud.jpg');
+          height: 100%; 
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+          overflow: hidden;
+      }
+      </style>
 </head>
-<body>
-  <app-root></app-root>
-</body>
+<div class="bg">
+    <body >
+  
+        <app-root></app-root>
+  
+  </body>
+</div>
+
+<footer >
+    <p style="margin-left: 800px;">&copy; All rights reserved for <i>Biblioteca Online</i> 2018</p>
+  </footer>
 </html>
 
