@@ -1,0 +1,8 @@
+<div class="compose">
+  <input type="text" [(ngModel)]="text">
+  <button (click)="addChat()">Send</button>
+</div>
+
+<div class="chats">
+  <p *ngFor="let chat of chatArray"><strong>{{chat.username}}: </strong> {{chat.text}}</p>
+</div>

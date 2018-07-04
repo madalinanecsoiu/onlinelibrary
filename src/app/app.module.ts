@@ -44,6 +44,8 @@ import { BookdetailsComponent } from './bookdetails/bookdetails.component';
 import { AdminHomePageComponent } from './admin-home-page/admin-home-page.component';
 import { NeutronRatingModule } from 'neutron-star-rating';
 import { BookComponent } from './book/book.component';
+import { ChatComponent } from './chat/chat.component';
+import { DsService } from './ds.service';
 
 
 @NgModule({
@@ -59,7 +61,8 @@ import { BookComponent } from './book/book.component';
     BookrentingComponent,
     BookdetailsComponent,
     AdminHomePageComponent,
-    BookComponent
+    BookComponent,
+    ChatComponent
   ],
   imports: [
     NeutronRatingModule,
@@ -102,7 +105,7 @@ import { BookComponent } from './book/book.component';
     BookrentingComponent,
     BookdetailsComponent
   ],
-  providers: [LoginService, BookService, AdminService, {
+  providers: [LoginService, BookService, AdminService, DsService, {
     provide: AuthServiceConfig,
     useFactory: getAuthServiceConfigs
   }],
